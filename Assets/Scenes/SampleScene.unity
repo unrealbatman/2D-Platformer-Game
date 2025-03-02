@@ -343,6 +343,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2101659911}
+  boxCol: {fileID: 2101659915}
+--- !u!61 &2101659915 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 2101659912, guid: 3948b8afe8219ee42bcb86711dc4bef3,
+    type: 3}
+  m_PrefabInstance: {fileID: 8402780718581094359}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8402780718581094359
 PrefabInstance:
   m_ObjectHideFlags: 0
