@@ -6,12 +6,20 @@ public class PlayerController : MonoBehaviour
 {
 
 
-    bool isCrouched =false;
+
     [SerializeField]
     public Animator animator;
 
+
+    [SerializeField]
+    public float speed;
+    public float jump;
+
     [SerializeField] private BoxCollider2D boxCol;
 
+
+
+    private Rigidbody2D rb;
     //Collider Variables
     private Vector2 boxColInitSize;
     private Vector2 boxColInitOffset;
@@ -21,30 +29,20 @@ public class PlayerController : MonoBehaviour
         //Fetching initial collider properties
         boxColInitSize = boxCol.size;
         boxColInitOffset = boxCol.offset;
+        rb= GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float VerticalInput = Input.GetAxis("Vertical");
-        float speed = Input.GetAxisRaw("Horizontal");
-        
-        animator.SetFloat("Speed", Mathf.Abs(speed));
-        PlayJumpAnimation(VerticalInput);
+        float Horizontal = Input.GetAxisRaw("Horizontal");
+        float Vertical = Input.GetAxis("Jump");
 
 
-        Vector3 scale = transform.localScale;
+        PlayJumpAnimation(Vertical);
+        MoveCharacter(Horizontal,Vertical);
 
-        if(speed < 0f)
-        {
-            scale.x= -1.0f * Mathf.Abs(scale.x);
-        }
-        else if(speed > 0f) {
-        
-            scale.x = Mathf.Abs(scale.x);
-        }
-
-        transform.localScale = scale;
+        PlayMovementAnimation(Horizontal);
 
         if (Input.GetKey(KeyCode.LeftControl))
         {
@@ -53,6 +51,37 @@ public class PlayerController : MonoBehaviour
         else
         {
             Crouch(false);
+        }
+    }
+
+    private void PlayMovementAnimation(float Horizontal)
+    {
+        animator.SetFloat("Speed", Mathf.Abs(Horizontal));
+
+        Vector3 scale = transform.localScale;
+
+        if (Horizontal < 0f)
+        {
+            scale.x = -1.0f * Mathf.Abs(scale.x);
+        }
+        else if (Horizontal > 0f)
+        {
+
+            scale.x = Mathf.Abs(scale.x);
+        }
+
+        transform.localScale = scale;
+    }
+
+    private void MoveCharacter(float Horizontal,float vertical)
+    {
+        Vector3 position = transform.position;
+        position.x += Time.deltaTime * Horizontal * speed;
+        transform.position = position;
+
+        if (vertical > 0)
+        {
+            rb.AddForce(new Vector2(0, jump), ForceMode2D.Impulse);
         }
     }
 
