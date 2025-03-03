@@ -343,6 +343,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2101659911}
+  speed: 1
+  jump: 0.1
   boxCol: {fileID: 2101659915}
 --- !u!61 &2101659915 stripped
 BoxCollider2D:
@@ -357,6 +359,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2101659913, guid: 3948b8afe8219ee42bcb86711dc4bef3, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2101659913, guid: 3948b8afe8219ee42bcb86711dc4bef3, type: 3}
       propertyPath: m_GravityScale
       value: 1
